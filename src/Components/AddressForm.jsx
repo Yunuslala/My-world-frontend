@@ -78,9 +78,10 @@ export default function AddressForm() {
   }, []);
    
 
-  const handleSubmit =() =>{
-   
-      localStorage.setItem("addressOfMyworld" , JSON.stringify([formvalue]))
+  const handleSubmit =async() =>{
+
+      localStorage.setItem("addressOfMyworld" , JSON.stringify([formvalue]));
+      
   }
 
 

@@ -14,6 +14,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { TextField } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 const Cartpage = () => {
   const [state, setState] = useState([]);
@@ -24,7 +25,9 @@ const Cartpage = () => {
     let temp = [...state];
     temp = temp.filter((e) => {
       if (e.id == id) {
+        
         e.qty = e.qty + 1;
+        console.log("qtv of e",e.qty)
       }
       return e;
     });
@@ -94,7 +97,8 @@ const Cartpage = () => {
             }}
           >
             {state.map((e, index) => {
-              totalAmount += e.price * e.qty;
+              totalAmount += Number(e.price) * Number(e.qty);
+              console.log("total amount",e.price,e.qty,e)
               return (
                 <Card
                   key={e.id}

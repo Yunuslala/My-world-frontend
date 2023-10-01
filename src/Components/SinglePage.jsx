@@ -20,7 +20,11 @@ const Singlepage = () => {
    
      useEffect(() => {
       console.log("id",id)
-         axios.get(`https://good-pink-cougar-garb.cyclic.app/product/get/${id}`).then((res)=>{
+      const headers = {
+        'Authorization': localStorage.getItem("userToken"),
+        'Content-Type': 'application/json',
+      };
+         axios.get(`https://good-pink-cougar-garb.cyclic.app/product/get/${id}`,{headers}).then((res)=>{
           console.log("singlePage",res.data)
               setstate(res.data)
 

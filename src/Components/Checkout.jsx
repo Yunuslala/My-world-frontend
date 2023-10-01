@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { useState , useEffect } from "react";
 import swal from 'sweetalert';
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 
 
@@ -33,10 +34,32 @@ export default function Checkout() {
   const handlePay = ()=>{
    
     prompt("enter your OTP here")
-    swal("your order will be delivered soon", "You clicked the button!", "success");
-    setTimeout(() => {
-      Navigate("/Home")
-    }, 2000);
+    const headers = {
+      'Authorization':localStorage.getItem("userToken"),
+      'Content-Type': 'application/json',
+    }; 
+    console.log("details",details);
+    const addresofUser=JSON.parse(localStorage.getItem("addressOfMyworld"));
+    const CartData=JSON.parse(localStorage.getItem("myworldCart"));
+    console.log("addresofUser",addresofUser);
+    console.log("cartData",CartData);
+    const ProductsId=CartData.map((item)=>{
+      const productdetails={productID:item._id,quantity:item.qty};
+      return productdetails
+    });
+    const PostData={
+      addressDetails:addresofUser,
+      Paymentdetails:details,
+      products:ProductsId
+    }
+    axios.post(`https://good-pink-cougar-garb.cyclic.app/Order/Add`,PostData,{headers}).then((res)=>{
+      console.log(res.data);
+      swal("your order will be delivered soon", "You clicked the button!", "success");
+      setTimeout(() => {
+        Navigate("/Home")
+      }, 2000);
+     })
+   
   }
 
    let total = 0
@@ -122,7 +145,7 @@ export default function Checkout() {
              if(details.cardName != "" ,details.cardNumber != "", details.expDate != "", details.cvv != "" ){
                handlePay()
              }else{
-               alert("please fill correct payment details")
+               alert("please fill all payment details")
              }
            }}
            > 

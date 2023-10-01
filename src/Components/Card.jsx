@@ -19,6 +19,9 @@ export default function CardDiv({e}) {
 
     const CartData = JSON.parse(localStorage.getItem("myworldCart")) || [];
     const AddToCart = (e) => {
+      console.log("adding in cart before adding qty",e)
+      e.qty = (e.qty === undefined) ? 1 : e.qty;
+      console.log("adding in cart",e)
      let CheckbagSameItemCount = 0;
      for (let i = 0; i < CartData.length; i++) {
        if (e.id === CartData[i].id) {

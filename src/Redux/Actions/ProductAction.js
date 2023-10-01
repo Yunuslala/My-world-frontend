@@ -27,7 +27,11 @@ export const cart_data = (payload) =>({type:CARTDATA , payload})
 
 export  const GetData = ()=>(Dispatch)=>{
     Dispatch(product_loding())
-   axios.get("https://good-pink-cougar-garb.cyclic.app/product/get").then((res)=>{
+    const headers = {
+        'Authorization': localStorage.getItem("userToken"),
+        'Content-Type': 'application/json',
+      };
+   axios.get("https://good-pink-cougar-garb.cyclic.app/product/get",{headers}).then((res)=>{
    Dispatch(product_success(res.data))
    }).catch((err)=>{
        Dispatch(product_error())
