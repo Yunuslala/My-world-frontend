@@ -12,7 +12,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.InputSearch{
+  border-radius: 20px;
+  padding: 8px 5px;
+  outline: none;
+  border: none;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

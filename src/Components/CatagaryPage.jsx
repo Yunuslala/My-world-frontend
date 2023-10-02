@@ -12,8 +12,12 @@ const CatagaryPage = () => {
   const { category } = useParams();
   
   useEffect(() => {
+    const headers = {
+      'Authorization': localStorage.getItem("userToken"),
+      'Content-Type': 'application/json',
+    };
     axios
-      .get("https://good-pink-cougar-garb.cyclic.app/product/get")
+      .get("https://good-pink-cougar-garb.cyclic.app/product/get",{headers})
       .then((res) =>
         setstate([...res.data.filter((el) => el.category === category)])
         );

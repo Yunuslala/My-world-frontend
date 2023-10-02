@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mui/system";
 import {  Grid } from "@mui/material";
 import { Button } from "@mui/material";
-import { GetData} from "../Redux/Actions/ProductAction";
+import { GetData,SearchData} from "../Redux/Actions/ProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import CardDiv from "./Card";
 import Shorting from "./Shorting";
 import SignInSide from "./Login";
 
-const Home = () => {
+const Home = ({toggle}) => {
 
   const Dispatch = useDispatch();
   const { Data } = useSelector((store) => store.productsFatch);
@@ -20,8 +20,12 @@ const Home = () => {
   
   useEffect(() => {
     Dispatch(GetData());
-  }, []);
-
+  },[]);
+  // useEffect(() => {
+  //   console.log("search toggle",toggle)
+  //   console.log("search toggle",Data)
+  //   Dispatch(SearchData());
+  // }, [toggle]);
   return (
 
     <>

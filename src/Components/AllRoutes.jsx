@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Route , Routes} from "react-router-dom"
 import Cartpage from './CartPage';
 import CatagaryPage from './CatagaryPage';
@@ -13,14 +13,20 @@ import Profile from './Profile';
 import Landing from './Landing';
 
 const Allroutes = () => {
+    const [toggle,setoggle]=useState(false);
+
     return (
     <>
-    <Navbar/>
+    <Navbar
+        setoggle={setoggle}
+    />
     <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/signIn' element = {<SignUp/>}/>
         <Route path='/LogIn' element={<SignInSide/>}/>
-        <Route path='/Home' element={<Home/>} />
+        <Route path='/Home' element={<Home
+            toggle={toggle}
+        />} />
         <Route path='/cartpage' element={<Cartpage/>} />
         <Route path='/singalInfo/:id' element={<Singlepage/>}/>
         <Route path='/cartpage/Address' element={<AddressForm/>} />

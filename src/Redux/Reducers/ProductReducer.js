@@ -1,11 +1,12 @@
-import { CARTDATA, FILTER, PRODUCT_ERROR , PRODUCT_LODING ,PRODUCT_SUCCESS , SORT_NAME_ASS , SORT_NAME_DISS , SORT_PRICE_H_TO_L , SORT_PRICE_L_TO_H , SORT_RATING_H_TO_L , SORT_RATING_L_TO_H  } from "../Actions/ProductAction";
+import { CARTDATA,SEARCH_ERROR,SEARCH_LODING,SEARCH_SUCCESS, FILTER, PRODUCT_ERROR , PRODUCT_LODING ,PRODUCT_SUCCESS , SORT_NAME_ASS , SORT_NAME_DISS , SORT_PRICE_H_TO_L , SORT_PRICE_L_TO_H , SORT_RATING_H_TO_L , SORT_RATING_L_TO_H  } from "../Actions/ProductAction";
 
 const InitialState = {
     isLoding:false,
     Data :[],
     error:false,
     filterData : [],
-    cartDataGet : []
+    cartDataGet : [],
+    SearchData:[]
 }
 
 
@@ -14,6 +15,10 @@ export const productReducer = (store = InitialState , {type , payload})=>{
         case PRODUCT_LODING :return {...store , isLoding :true}
         case PRODUCT_ERROR : return {...store , error :true , isLoding:false}
         case PRODUCT_SUCCESS: return {...store , Data:payload , isLoding :false , error : false}
+        case SEARCH_LODING :return {...store , isLoding :true}
+        case SEARCH_ERROR : return {...store , error :true , isLoding:false}
+        case SEARCH_SUCCESS:console.log("search",payload);
+             return {...store , Data:payload , isLoding :false , error : false}
         case SORT_PRICE_L_TO_H : let SortData = store.Data.sort((a,b)=>{return a.price - b.price}) 
         return{
            ...store , Data:[...SortData]

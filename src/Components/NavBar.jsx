@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
@@ -14,10 +14,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../Redux/Actions/LoginAction";
-import { useEffect } from "react";
-
-const Navbar = () => {
+import { useEffect} from "react";
+import {SearchData} from "../Redux/Actions/ProductAction"
+const Navbar = ({setoggle}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [searchValue, setSearchValue] = useState('');
   const { cartDataGet } = useSelector((store) => store.productsFatch);
   const Data = useSelector((store) => store.LoginFatch);
 
@@ -69,7 +70,7 @@ const Navbar = () => {
       [theme.breakpoints.up("sm")]: {
         width: "12ch",
         "&:focus": {
-          width: "20ch",
+          width: "30ch",
         },
       },
     },
@@ -83,6 +84,17 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+    const handleSearch=async(e)=>{
+      console.log("search",e.target.value);
+      setSearchValue(e.target.value);
+      console.log("search after",e.target.value);
+    }
+
+ 
+const handleSearchClick=()=>{
+  setoggle((val)=>!val);
+  Dispatch(SearchData(searchValue))
+}
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -150,15 +162,18 @@ const Navbar = () => {
               </Link>
             ) : (
               <Box sx={{ display: "flex" }}>
-                <Search>
-                  <SearchIconWrapper>
+                {/* <Search> */}
+                  {/* <SearchIconWrapper>
                     <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
+                  </SearchIconWrapper> */}
+                  <input
                     placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
+                    // inputProps={{ "aria-label": "search" }}
+                    onChange={handleSearch}
+                    className="InputSearch"
+                    // style={StyledInputBase}
                   />
-                </Search>
+                {/* </Search> */}
                 <Button
                   sx={{
                     borderRadius: "30px",
@@ -168,10 +183,10 @@ const Navbar = () => {
                     marginRight: "30px",
                   }}
                   variant="text"
+                  onClick={handleSearchClick}
                 >
                   Search
                 </Button>
-                {/* <Typography variant="h6">hii! ritesh...</Typography> */}
                 <div>
                   <Button
                     id="basic-button"
